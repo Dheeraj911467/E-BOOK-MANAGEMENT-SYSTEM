@@ -1,0 +1,71 @@
+{
+  "entities": {
+    "users": {
+      "title": "User Profile",
+      "description": "Registered library patron or faculty user",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "fullName": { "type": "string", "maxLength": 100 },
+        "email": { "type": "string", "maxLength": 150 },
+        "avatarUrl": { "type": "string", "maxLength": 500 },
+        "membershipNumber": { "type": "string", "maxLength": 50 },
+        "department": { "type": "string", "maxLength": 100 },
+        "role": { "type": "string", "enum": ["student", "faculty", "admin"] },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "fullName", "email"]
+    },
+    "purchasedBooks": {
+      "title": "Purchased E-Book",
+      "description": "Record of a purchased or accessed e-book in user library",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "bookId": { "type": "string" },
+        "title": { "type": "string", "maxLength": 200 },
+        "author": { "type": "string", "maxLength": 150 },
+        "category": { "type": "string", "maxLength": 100 },
+        "coverUrl": { "type": "string", "maxLength": 500 },
+        "price": { "type": "number" },
+        "purchaseDate": { "type": "string" },
+        "orderId": { "type": "string", "maxLength": 100 },
+        "format": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["userId", "bookId", "title", "author", "purchaseDate"]
+    },
+    "orders": {
+      "title": "Checkout Order",
+      "description": "User checkout order log",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "userEmail": { "type": "string", "maxLength": 150 },
+        "fullName": { "type": "string", "maxLength": 100 },
+        "items": { "type": "array" },
+        "totalAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["completed", "pending"] },
+        "paymentMethod": { "type": "string", "maxLength": 50 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "totalAmount", "status", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "users",
+      "description": "User profile documents"
+    },
+    "/users/{userId}/purchased_books/{bookDocId}": {
+      "schema": "purchasedBooks",
+      "description": "Purchased e-books in user library"
+    },
+    "/orders/{orderId}": {
+      "schema": "orders",
+      "description": "Order records for checkout purchases"
+    }
+  }
+}

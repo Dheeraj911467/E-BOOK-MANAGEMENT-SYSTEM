@@ -1,0 +1,6 @@
+{
+  "name": "E-Book Management System",
+  "description": "An academic digital press and library repository application to browse, search, purchase, manage, and read digital e-books.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
